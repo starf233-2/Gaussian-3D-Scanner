@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?attr/colorSurface"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="Quality Preset"
+        android:textAppearance="?attr/textAppearanceTitleMedium"
+        android:textColor="?attr/colorOnSurface"
+        android:layout_marginBottom="4dp" />
+
+    <TextView
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="Higher quality generates denser point clouds"
+        android:textAppearance="?attr/textAppearanceBodySmall"
+        android:textColor="?attr/colorOutline"
+        android:layout_marginBottom="20dp" />
+
+    <RadioGroup
+        android:id="@+id/rgQuality"
+        android:layout_width="match_parent" android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/rbLow"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="Low — 6 GB RAM"
+            android:padding="16dp"
+            android:textColor="?attr/colorOnSurface"
+            android:layout_marginBottom="4dp" />
+
+        <RadioButton
+            android:id="@+id/rbMedium"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="Medium — 8 GB RAM (default)"
+            android:padding="16dp"
+            android:textColor="?attr/colorOnSurface"
+            android:layout_marginBottom="4dp" />
+
+        <RadioButton
+            android:id="@+id/rbHigh"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="High — 12 GB+ RAM"
+            android:padding="16dp"
+            android:textColor="?attr/colorOnSurface" />
+
+    </RadioGroup>
+</LinearLayout>
