@@ -23,16 +23,40 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:visibility="gone" />
 
+    <SeekBar
+        android:id="@+id/sbExposure"
+        android:layout_width="180dp" android:layout_height="wrap_content"
+        android:max="480" android:progress="240"
+        android:rotation="90"
+        android:visibility="gone"
+        android:progressDrawable="@drawable/slider_track"
+        android:thumb="@drawable/slider_thumb"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <TextView
         android:id="@+id/tvStatus"
         android:layout_width="0dp" android:layout_height="wrap_content"
-        android:text="Tap to capture"
+        android:text="点击拍摄"
         android:textColor="#FF00D4AA" android:textSize="14sp"
         android:gravity="center" android:background="#CC000000"
         android:padding="10dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tvFps"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="60 FPS"
+        android:textColor="#9900D4AA"
+        android:textSize="11sp"
+        android:padding="4dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="6dp" android:layout_marginStart="6dp" />
 
     <ImageView
         android:id="@+id/btnSettings"
@@ -43,6 +67,19 @@
         android:layout_marginTop="8dp" android:layout_marginEnd="8dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/btnAxisLock"
+        android:layout_width="40dp" android:layout_height="40dp"
+        android:text="FREE"
+        android:textSize="9sp"
+        android:textColor="#CCCCCC"
+        android:gravity="center"
+        android:background="@drawable/btn_gray_circle"
+        android:layout_marginTop="8dp" android:layout_marginEnd="8dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/btnSettings"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <ProgressBar

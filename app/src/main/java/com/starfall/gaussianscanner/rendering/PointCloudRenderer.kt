@@ -14,8 +14,14 @@ uniform mat4 uMVP; uniform float uPtSize; in vec3 aPos; in vec3 aCol; out vec3 v
 void main(){gl_Position=uMVP*vec4(aPos,1.0);gl_PointSize=uPtSize;vCol=aCol;}""".trimIndent()
 
     private val fs = """#version 300 es
-precision mediump float; in vec3 vCol; out vec4 fc;
-void main(){float d=distance(gl_PointCoord,vec2(0.5));if(d>0.5)discard;float a=smoothstep(0.5,0.25,d);fc=vec4(vCol,a);}""".trimIndent()
+precision mediump float; uniform int uFuzzy; uniform float uFuzzyRadius; in vec3 vCol; out vec4 fc;
+void main(){
+  float d=distance(gl_PointCoord,vec2(0.5));
+  float sigma = (uFuzzy==1) ? (0.45+uFuzzyRadius*0.35) : 0.6;
+  float a=exp(-d*d/(2.0*sigma*sigma));
+  if(a<0.02)discard;
+  fc=vec4(vCol,a);
+}""".trimIndent()
 
     private var prog=0; private var n=0
     private var vBuf:FloatBuffer?=null; private var cBuf:FloatBuffer?=null
@@ -23,6 +29,11 @@ void main(){float d=distance(gl_PointCoord,vec2(0.5));if(d>0.5)discard;float a=s
     private var pending:List<ColoredPt>?=null
 
     var rx=0f; var ry=0f; var zoom=3f; var ptSize=6f
+    var fuzzy = false
+    var fuzzyRadius = 1.0f
+    @Volatile var fps = 0; private set
+    private var fpsFrames = 0
+    private var fpsTime = 0L
 
     fun setCloud(pts:List<ColoredPt>){synchronized(this){pending=pts}}
 
@@ -37,6 +48,12 @@ void main(){float d=distance(gl_PointCoord,vec2(0.5));if(d>0.5)discard;float a=s
     }
 
     override fun onDrawFrame(gl:GL10?){
+        val now = System.currentTimeMillis()
+        fpsFrames++
+        if (now - fpsTime >= 500) {
+            fps = (fpsFrames * 1000f / (now - fpsTime)).toInt()
+            fpsFrames = 0; fpsTime = now
+        }
         GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT or GLES30.GL_DEPTH_BUFFER_BIT)
         synchronized(this){pending?.let{pts->
             n=pts.size; if(n>0){
@@ -58,6 +75,10 @@ void main(){float d=distance(gl_PointCoord,vec2(0.5));if(d>0.5)discard;float a=s
         GLES30.glUniformMatrix4fv(GLES30.glGetUniformLocation(prog,"uMVP"),1,false,mvp,0)
 
         GLES30.glUniform1f(GLES30.glGetUniformLocation(prog,"uPtSize"),ptSize)
+        GLES30.glUniform1i(GLES30.glGetUniformLocation(prog,"uFuzzy"), if (fuzzy) 1 else 0)
+        GLES30.glUniform1f(GLES30.glGetUniformLocation(prog,"uFuzzyRadius"), fuzzyRadius)
+
+        GLES30.glBlendFunc(GLES30.GL_SRC_ALPHA, GLES30.GL_ONE_MINUS_SRC_ALPHA)
 
         val aP=GLES30.glGetAttribLocation(prog,"aPos"); val aC=GLES30.glGetAttribLocation(prog,"aCol")
         vBuf?.position(0); GLES30.glVertexAttribPointer(aP,3,GLES30.GL_FLOAT,false,0,vBuf); GLES30.glEnableVertexAttribArray(aP)

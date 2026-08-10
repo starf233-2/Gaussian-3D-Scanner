@@ -7,17 +7,17 @@
 
     <TextView
         android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:text="Quality Preset"
+        android:text="质量预设"
         android:textAppearance="?attr/textAppearanceTitleMedium"
         android:textColor="?attr/colorOnSurface"
         android:layout_marginBottom="4dp" />
 
     <TextView
         android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:text="Higher quality generates denser point clouds"
+        android:text="更高的质量会生成更密集的点云"
         android:textAppearance="?attr/textAppearanceBodySmall"
         android:textColor="?attr/colorOutline"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="16dp" />
 
     <RadioGroup
         android:id="@+id/rgQuality"
@@ -26,25 +26,339 @@
         <RadioButton
             android:id="@+id/rbLow"
             android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:text="Low — 6 GB RAM"
-            android:padding="16dp"
-            android:textColor="?attr/colorOnSurface"
-            android:layout_marginBottom="4dp" />
+            android:text="低档 — 6 GB 内存"
+            android:padding="12dp"
+            android:textColor="?attr/colorOnSurface" />
 
         <RadioButton
             android:id="@+id/rbMedium"
             android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:text="Medium — 8 GB RAM (default)"
-            android:padding="16dp"
-            android:textColor="?attr/colorOnSurface"
-            android:layout_marginBottom="4dp" />
+            android:text="中档 — 8 GB 内存（默认）"
+            android:padding="12dp"
+            android:textColor="?attr/colorOnSurface" />
 
         <RadioButton
             android:id="@+id/rbHigh"
             android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:text="High — 12 GB+ RAM"
-            android:padding="16dp"
+            android:text="高档 — 12 GB 及以上内存"
+            android:padding="12dp"
+            android:textColor="?attr/colorOnSurface" />
+
+        <RadioButton
+            android:id="@+id/rbCustom"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="自定义"
+            android:padding="12dp"
             android:textColor="?attr/colorOnSurface" />
 
     </RadioGroup>
+
+    <LinearLayout
+        android:id="@+id/customPanel"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#1AFFFFFF"
+        android:padding="16dp"
+        android:visibility="gone"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="点云点数"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <SeekBar
+                android:id="@+id/sbPoints"
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="1160" android:progress="460"
+                android:progressDrawable="@drawable/slider_track"
+                android:thumb="@drawable/slider_thumb" />
+
+            <TextView
+                android:id="@+id/tvPointsValue"
+                android:layout_width="84dp" android:layout_height="wrap_content"
+                android:text="500k"
+                android:textColor="#FF00D4AA"
+                android:textSize="13sp"
+                android:gravity="end"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="点云宽度（像素）"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="14sp"
+            android:layout_marginTop="12dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <SeekBar
+                android:id="@+id/sbWidth"
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="900" android:progress="512"
+                android:progressDrawable="@drawable/slider_track"
+                android:thumb="@drawable/slider_thumb" />
+
+            <TextView
+                android:id="@+id/tvWidthValue"
+                android:layout_width="84dp" android:layout_height="wrap_content"
+                android:text="612"
+                android:textColor="#FF00D4AA"
+                android:textSize="13sp"
+                android:gravity="end"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#1AFFFFFF"
+        android:padding="16dp"
+        android:layout_marginTop="12dp">
+
+        <LinearLayout
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="点云毛边"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="模糊的点边缘，让像素衔接更柔和"
+                android:textColor="?attr/colorOutline"
+                android:textSize="12sp"
+                android:layout_marginTop="2dp" />
+        </LinearLayout>
+
+        <Switch
+            android:id="@+id/swFuzzy"
+            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fuzzyRadiusPanel"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#1AFFFFFF"
+        android:padding="16dp"
+        android:layout_marginTop="8dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="毛边半径"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <SeekBar
+                android:id="@+id/sbFuzzyRadius"
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="26" android:progress="10"
+                android:progressDrawable="@drawable/slider_track"
+                android:thumb="@drawable/slider_thumb" />
+
+            <TextView
+                android:id="@+id/tvFuzzyRadiusValue"
+                android:layout_width="84dp" android:layout_height="wrap_content"
+                android:text="1.0"
+                android:textColor="#FF00D4AA"
+                android:textSize="13sp"
+                android:gravity="end"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#1AFFFFFF"
+        android:padding="16dp"
+        android:layout_marginTop="8dp">
+
+        <LinearLayout
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="边缘修剪"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="剔除深度突变处的点，让物体边界更干净"
+                android:textColor="?attr/colorOutline"
+                android:textSize="12sp"
+                android:layout_marginTop="2dp" />
+        </LinearLayout>
+
+        <Switch
+            android:id="@+id/swEdgeTrim"
+            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/edgeTrimPanel"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#1AFFFFFF"
+        android:padding="16dp"
+        android:layout_marginTop="8dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="修剪强度"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <SeekBar
+                android:id="@+id/sbEdgeTrim"
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="20" android:progress="10"
+                android:progressDrawable="@drawable/slider_track"
+                android:thumb="@drawable/slider_thumb" />
+
+            <TextView
+                android:id="@+id/tvEdgeTrimValue"
+                android:layout_width="84dp" android:layout_height="wrap_content"
+                android:text="50%"
+                android:textColor="#FF00D4AA"
+                android:textSize="13sp"
+                android:gravity="end"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#1AFFFFFF"
+        android:padding="16dp"
+        android:layout_marginTop="8dp">
+
+        <LinearLayout
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="调试模式"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="每次推理生成日志到 Documents 文件夹，用于排错"
+                android:textColor="?attr/colorOutline"
+                android:textSize="12sp"
+                android:layout_marginTop="2dp" />
+        </LinearLayout>
+
+        <Switch
+            android:id="@+id/swDebug"
+            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#1AFFFFFF"
+        android:padding="16dp"
+        android:layout_marginTop="8dp">
+
+        <LinearLayout
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="真实焦距"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="用相机校准焦距，几何比例更真实"
+                android:textColor="?attr/colorOutline"
+                android:textSize="12sp"
+                android:layout_marginTop="2dp" />
+        </LinearLayout>
+
+        <Switch
+            android:id="@+id/swFocal"
+            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#1AFFFFFF"
+        android:padding="16dp"
+        android:layout_marginTop="8dp">
+
+        <LinearLayout
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="深度插值"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="双线性采样深度，消除块状感"
+                android:textColor="?attr/colorOutline"
+                android:textSize="12sp"
+                android:layout_marginTop="2dp" />
+        </LinearLayout>
+
+        <Switch
+            android:id="@+id/swDepthInterp"
+            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    </LinearLayout>
+
 </LinearLayout>
