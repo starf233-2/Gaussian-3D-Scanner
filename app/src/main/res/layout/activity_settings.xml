@@ -1,9 +1,316 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:orientation="vertical"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="?attr/colorSurface"
-    android:padding="20dp">
+    android:fillViewport="true"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#1AFFFFFF"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="设备信息"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:textColor="?attr/colorOnSurface" />
+
+        <TextView
+            android:id="@+id/tvDeviceInfo"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="检测中…"
+            android:textSize="13sp"
+            android:textColor="?attr/colorOutline"
+            android:layout_marginTop="4dp" />
+
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="QNN: 高通AI Engine Direct (GPU/NPU 加速)"
+            android:textSize="12sp"
+            android:textColor="#FF00D4AA"
+            android:layout_marginTop="6dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#1AFFFFFF"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="推理加速引擎"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:textColor="?attr/colorOnSurface" />
+
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="将深度模型卸载到高通GPU或NPU运行\n设置在下一次拍照/图片推理时生效，无需重启"
+            android:textAppearance="?attr/textAppearanceBodySmall"
+            android:textColor="?attr/colorOutline"
+            android:layout_marginBottom="12dp" />
+
+        <RadioGroup
+            android:id="@+id/rgEngine"
+            android:layout_width="match_parent" android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/rbEngineAuto"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="自动（推荐）"
+                android:padding="8dp"
+                android:textColor="?attr/colorOnSurface" />
+
+            <RadioButton
+                android:id="@+id/rbEngineGpu"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="GPU（QNN · Adreno）"
+                android:padding="8dp"
+                android:textColor="?attr/colorOnSurface" />
+
+            <RadioButton
+                android:id="@+id/rbEngineNpu"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="NPU（QNN · Hexagon DSP/HTP）"
+                android:padding="8dp"
+                android:textColor="?attr/colorOnSurface" />
+
+            <RadioButton
+                android:id="@+id/rbEngineCpu"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="仅CPU（兼容模式）"
+                android:padding="8dp"
+                android:textColor="?attr/colorOnSurface" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#1AFFFFFF"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="GPU 精度"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:textColor="?attr/colorOnSurface" />
+
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="fp16 最快但深度细节可能被平滑；高精度更准但稍慢"
+            android:textAppearance="?attr/textAppearanceBodySmall"
+            android:textColor="?attr/colorOutline"
+            android:layout_marginBottom="12dp" />
+
+        <RadioGroup
+            android:id="@+id/rgGpuQuality"
+            android:layout_width="match_parent" android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/rbGpuFast"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="快速（fp16）"
+                android:padding="8dp"
+                android:textColor="?attr/colorOnSurface" />
+
+            <RadioButton
+                android:id="@+id/rbGpuBalanced"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="均衡（默认）"
+                android:padding="8dp"
+                android:textColor="?attr/colorOnSurface" />
+
+            <RadioButton
+                android:id="@+id/rbGpuPrecise"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="高精度（fp32）"
+                android:padding="8dp"
+                android:textColor="?attr/colorOnSurface" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#1AFFFFFF"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="GPU 委托范围"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:textColor="?attr/colorOnSurface" />
+
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="全图委托最快；画质优先把注意力/GELU放CPU以保证深度细节"
+            android:textAppearance="?attr/textAppearanceBodySmall"
+            android:textColor="?attr/colorOutline"
+            android:layout_marginBottom="12dp" />
+
+        <RadioGroup
+            android:id="@+id/rgGpuMode"
+            android:layout_width="match_parent" android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/rbGpuModeAuto"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="自动（默认）"
+                android:padding="8dp"
+                android:textColor="?attr/colorOnSurface" />
+
+            <RadioButton
+                android:id="@+id/rbGpuModeQuality"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="画质优先（注意力/GELU 用 CPU）"
+                android:padding="8dp"
+                android:textColor="?attr/colorOnSurface" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#1AFFFFFF"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp">
+
+        <LinearLayout
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="GPU 兼容模式"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="全图委托失败时才尝试跳过部分算子上CPU（默认关闭）"
+                android:textColor="?attr/colorOutline"
+                android:textSize="12sp"
+                android:layout_marginTop="2dp" />
+        </LinearLayout>
+
+        <Switch
+            android:id="@+id/swGpuCompat"
+            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#1AFFFFFF"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp">
+
+        <LinearLayout
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="深度平滑"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="深度后处理：剔除离群点并平滑，点云更干净"
+                android:textColor="?attr/colorOutline"
+                android:textSize="12sp"
+                android:layout_marginTop="2dp" />
+        </LinearLayout>
+
+        <Switch
+            android:id="@+id/swDepthSmooth"
+            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#1AFFFFFF"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp">
+
+        <LinearLayout
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="颜色增强"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="提升点云饱和度与对比度，色彩更鲜活"
+                android:textColor="?attr/colorOutline"
+                android:textSize="12sp"
+                android:layout_marginTop="2dp" />
+        </LinearLayout>
+
+        <Switch
+            android:id="@+id/swColorEnhance"
+            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#1AFFFFFF"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp">
+
+        <LinearLayout
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="光照增强"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="按深度法线打光，立体感更强"
+                android:textColor="?attr/colorOutline"
+                android:textSize="12sp"
+                android:layout_marginTop="2dp" />
+        </LinearLayout>
+
+        <Switch
+            android:id="@+id/swLighting"
+            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -286,7 +593,7 @@
 
             <TextView
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="每次推理生成日志到 Documents 文件夹，用于排错"
+                android:text="显示调试选项；只有开启“生成日志”才写诊断文件"
                 android:textColor="?attr/colorOutline"
                 android:textSize="12sp"
                 android:layout_marginTop="2dp" />
@@ -295,6 +602,69 @@
         <Switch
             android:id="@+id/swDebug"
             android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/debugPanel"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#1AFFFFFF"
+        android:padding="8dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="生成日志"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="14sp" />
+
+            <Switch
+                android:id="@+id/swDebugLog"
+                android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="输出深度图&amp;光线图"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="14sp" />
+
+            <Switch
+                android:id="@+id/swDepthRay"
+                android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="显示点数量"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="14sp" />
+
+            <Switch
+                android:id="@+id/swShowPtCount"
+                android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -361,4 +731,101 @@
             android:layout_width="wrap_content" android:layout_height="wrap_content" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#1AFFFFFF"
+        android:padding="16dp"
+        android:layout_marginTop="8dp">
+
+        <LinearLayout
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="手动输入焦距"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="开启后每次导入图片先输入焦距(mm)，等效35mm焦距；不填默认45mm"
+                android:textColor="?attr/colorOutline"
+                android:textSize="12sp"
+                android:layout_marginTop="2dp" />
+        </LinearLayout>
+
+        <Switch
+            android:id="@+id/swManualFocal"
+            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#1AFFFFFF"
+        android:padding="16dp"
+        android:layout_marginTop="8dp">
+
+        <LinearLayout
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="高分辨率推理（切块融合）"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="等尺寸重叠瓦片+尺度对齐，最高2倍深度网格；完整模式共10次推理，显示网格最高100万点。原图不足或融合失败会说明原因"
+                android:textColor="?attr/colorOutline"
+                android:textSize="12sp"
+                android:layout_marginTop="2dp" />
+        </LinearLayout>
+
+        <Switch
+            android:id="@+id/swTiled"
+            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#1AFFFFFF"
+        android:padding="16dp"
+        android:layout_marginTop="8dp">
+
+        <LinearLayout
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="自动点大小"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="按每个点的网格间距、视距及旋转计算屏幕覆盖大小；近处放大、远处缩小。PLY按点间距估算"
+                android:textColor="?attr/colorOutline"
+                android:textSize="12sp"
+                android:layout_marginTop="2dp" />
+        </LinearLayout>
+
+        <Switch
+            android:id="@+id/swAutoPtSize"
+            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    </LinearLayout>
+
 </LinearLayout>
+</androidx.core.widget.NestedScrollView>
